@@ -64,41 +64,8 @@ resource "aws_lb_target_group" "this" {
   }
 }
 
-# HTTP Listener - Redirect to HTTPS
+# HTTP Listener (always present)
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.this.arn
-  port              = "80"
-  protocol          = "HTTP"
-
-  default_action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-}
-
-# HTTPS Listener (only if certificate is provided)
-resource "aws_lb_listener" "https" {
-  count             = var.certificate_arn != "" ? 1 : 0
-  load_balancer_arn = aws_lb.this.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
-  certificate_arn   = var.certificate_arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.this.arn
-  }
-}
-
-# HTTP Listener for direct access (when no certificate)
-resource "aws_lb_listener" "http_direct" {
-  count             = var.certificate_arn == "" ? 1 : 0
   load_balancer_arn = aws_lb.this.arn
   port              = "80"
   protocol          = "HTTP"

@@ -27,11 +27,10 @@ module "iam" {
 }
 
 module "alb" {
-  source          = "./modules/alb"
-  vpc_id          = module.vpc.vpc_id
-  public_subnets  = module.vpc.public_subnets
-  project_name    = var.project_name
-  certificate_arn = var.domain_name != "" && var.enable_ssl ? module.route53[0].certificate_arn : ""
+  source         = "./modules/alb"
+  vpc_id         = module.vpc.vpc_id
+  public_subnets = module.vpc.public_subnets
+  project_name   = var.project_name
 }
 
 module "route53" {

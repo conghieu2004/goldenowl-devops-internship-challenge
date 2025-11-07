@@ -27,5 +27,5 @@ output "target_group_name" {
 }
 
 output "alb_listener_arn" {
-  value = var.certificate_arn != "" ? aws_lb_listener.https[0].arn : aws_lb_listener.http_direct[0].arn
+  value = aws_lb_listener.http.arn
 }
