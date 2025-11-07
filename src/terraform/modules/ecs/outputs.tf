@@ -17,3 +17,11 @@ output "task_definition_family" {
 output "task_definition_arn" {
   value = aws_ecs_task_definition.app.arn
 }
+
+output "ecs_security_group_id" {
+  value = aws_security_group.ecs_tasks.id
+}
+
+output "cloudwatch_log_group" {
+  value = aws_cloudwatch_log_group.ecs_logs.name
+}
