@@ -28,6 +28,31 @@ output "target_group_name" {
   value = module.alb.target_group_name
 }
 
+# Route53 & SSL Outputs
+output "domain_name" {
+  description = "Full domain name for the application"
+  value       = var.domain_name != "" ? module.route53[0].domain_name : null
+}
+
+output "certificate_arn" {
+  description = "ACM certificate ARN"
+  value       = var.domain_name != "" && var.enable_ssl ? module.route53[0].certificate_arn : null
+}
+
+output "nameservers" {
+  description = "Name servers for the hosted zone (set these in your domain registrar)"
+  value       = var.domain_name != "" ? module.route53[0].nameservers : []
+}
+
+output "application_urls" {
+  description = "URLs to access the application"
+  value = {
+    alb_dns_name = "http://${module.alb.alb_dns_name}"
+    custom_domain = var.domain_name != "" ? "https://${module.route53[0].domain_name}" : null
+    ssl_enabled = var.domain_name != "" && var.enable_ssl
+  }
+}
+
 # ECS Outputs
 output "ecs_cluster_name" {
   value = module.ecs.cluster_name

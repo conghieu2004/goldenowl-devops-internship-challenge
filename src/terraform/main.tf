@@ -31,6 +31,18 @@ module "alb" {
   vpc_id          = module.vpc.vpc_id
   public_subnets  = module.vpc.public_subnets
   project_name    = var.project_name
+  certificate_arn = var.domain_name != "" && var.enable_ssl ? module.route53[0].certificate_arn : ""
+}
+
+module "route53" {
+  count              = var.domain_name != "" ? 1 : 0
+  source             = "./modules/route53"
+  domain_name        = var.domain_name
+  subdomain          = var.subdomain
+  alb_dns_name       = module.alb.alb_dns_name
+  alb_zone_id        = module.alb.alb_zone_id
+  create_certificate = var.enable_ssl
+  project_name       = var.project_name
 }
 
 module "ecs" {

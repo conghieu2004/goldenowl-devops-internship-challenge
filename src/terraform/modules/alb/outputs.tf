@@ -2,6 +2,10 @@ output "alb_dns_name" {
   value = aws_lb.this.dns_name
 }
 
+output "alb_zone_id" {
+  value = aws_lb.this.zone_id
+}
+
 output "alb_name" {
   value = aws_lb.this.name
 }
@@ -23,5 +27,5 @@ output "target_group_name" {
 }
 
 output "alb_listener_arn" {
-  value = aws_lb_listener.this.arn
+  value = var.certificate_arn != "" ? aws_lb_listener.https[0].arn : aws_lb_listener.http_direct[0].arn
 }
