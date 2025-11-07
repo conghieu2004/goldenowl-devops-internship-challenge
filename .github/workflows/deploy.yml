@@ -3,7 +3,8 @@ name: Build and Deploy to ECS
 on:
   push:
     branches:
-      - main  # Hoặc branch bạn muốn CI/CD tự chạy
+      - master  # Chạy khi push lên branch master
+      - main    # Cũng chạy trên main nếu có
 
 jobs:
   deploy:
