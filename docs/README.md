@@ -14,15 +14,11 @@ This document describes the complete AWS infrastructure architecture for the Nod
 
 ### **Infrastructure Deployment Demo**
 
-**Video Link**: [Add your demo video link here]
+**Video Link**: https://drive.google.com/drive/folders/1Fqa7kUk4zMIXwUvzIUZi24yXWA2WYLEb?hl=vi
 
 *Demo video showing the complete deployment process including:*
 - *Infrastructure provisioning with Terraform*
 - *CI/CD pipeline execution with GitHub Actions*
-- *Application deployment to ECS Fargate*
-- *Domain and SSL certificate setup*
 - *Live application testing*
-
 ---
-
 *This documentation provides a comprehensive overview of the AWS infrastructure architecture for production deployment.*
